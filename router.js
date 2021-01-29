@@ -8,6 +8,7 @@ let counter = 0
 router.get('/check/:id',async(req,res) => {
     // const reqBody = req.body
     try{
+        
         let urlID = base62.encode(counter)
         const url = await new URL({ realURL: req.params.id , id: urlID })
         const foundUrl = await URL.findOne({ realURL: req.params.id }).exec();
@@ -30,7 +31,9 @@ router.get('/check/:id',async(req,res) => {
                 res.status(201).send(`${urlID}`)
             }
             else
-                res.status(200).send(firstExpired.id)
+                {
+                    res.status(200).send(firstExpired.id)
+                }
         }
     }
     catch(err){
@@ -39,11 +42,11 @@ router.get('/check/:id',async(req,res) => {
 })
 
 
-router.get('/:id', async(req,res) => {
+router.get('/:myid', async(req,res) => {
     try{
         // const url = await new URL({ realURL: req.params.id , id: urlID })
-        const foundUrl = await URL.findOne({ realURL: req.params.id }).exec();
-        console.log(foundUrl)
+        const foundUrl = await URL.findOne({ id: req.params.myid }).exec();
+
         if(foundUrl){
             res.status(200).send(foundUrl.realURL)
         }
