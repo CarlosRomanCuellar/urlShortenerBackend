@@ -1,6 +1,6 @@
 const express = require('express');
 var base62 = require("base62/lib/ascii");
-const URL = require("./models/urls")
+const URL = require("../models/urls")
 const moment = require("moment")
 const router = new express.Router();
 let counter = 0
